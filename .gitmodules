@@ -1,0 +1,3 @@
+[submodule "components/nuvado"]
+	path = components/nuvado
+	url = https://github.com/heapsource/nuvado.git
