@@ -2,10 +2,10 @@
 :: Use SETLOCAL so variables set in the script are not persisted
 @SETLOCAL
 
-:: Add bundled ruby version to the PATH, use HerokuPath as starting point
-@SET HEROKU_RUBY="%HerokuPath%\ruby-1.9.2\bin"
-@SET PATH=%HEROKU_RUBY%;%PATH%
+:: Add bundled ruby version to the PATH, use NuvadoPath as starting point
+@SET NUVADO_RUBY="%HerokuPath%\ruby-1.9.2\bin"
+@SET PATH=%NUVADO_RUBY%;%PATH%
 
-:: Invoke 'heroku' (the calling script) as argument to ruby.
+:: Invoke 'nuvado' (the calling script) as argument to ruby.
 :: Also forward all the arguments provided to it.
 @ruby.exe "%~dpn0" %*

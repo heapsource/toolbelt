@@ -1,8 +1,8 @@
 [Setup]
-AppName=Heroku
+AppName=Nuvado
 AppVersion=<%= version %>
-DefaultDirName={pf}\Heroku
-DefaultGroupName=Heroku
+DefaultDirName={pf}\Nuvado
+DefaultGroupName=Nuvado
 Compression=lzma2
 SolidCompression=yes
 OutputBaseFilename=<%= File.basename(t.name, ".exe") %>
@@ -20,19 +20,18 @@ Name: client; Description: "Full Installation";
 Name: custom; Description: "Custom Installation"; flags: iscustom
 
 [Components]
-Name: "toolbelt"; Description: "Heroku Toolbelt"; Types: "client custom"
-Name: "toolbelt/client"; Description: "Heroku Client"; Types: "client custom"; Flags: fixed
-Name: "toolbelt/foreman"; Description: "Foreman"; Types: "client custom"
+Name: "toolbelt"; Description: "Nuvado Toolbelt"; Types: "client custom"
+Name: "toolbelt/client"; Description: "Nuvado Client"; Types: "client custom"; Flags: fixed
 Name: "toolbelt/git"; Description: "Git and SSH"; Types: "client custom"; Check: "not IsProgramInstalled('git.exe')"
 Name: "toolbelt/git"; Description: "Git and SSH"; Check: "IsProgramInstalled('git.exe')"
 
 [Files]
-Source: "heroku\*.*"; DestDir: "{app}"; Flags: recursesubdirs; Components: "toolbelt/client"
+Source: "nuvado\*.*"; DestDir: "{app}"; Flags: recursesubdirs; Components: "toolbelt/client"
 Source: "installers\rubyinstaller.exe"; DestDir: "{tmp}"; Components: "toolbelt/client"
 Source: "installers\git.exe"; DestDir: "{tmp}"; Components: "toolbelt/git"
 
 [Registry]
-Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: "expandsz"; ValueName: "HerokuPath"; \
+Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: "expandsz"; ValueName: "NuvadoPath"; \
   ValueData: "{app}"
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: "expandsz"; ValueName: "Path"; \
   ValueData: "{olddata};{app}\bin"; Check: NeedsAddPath(ExpandConstant('{app}\bin'))
@@ -42,10 +41,6 @@ Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environmen
 [Run]
 Filename: "{tmp}\rubyinstaller.exe"; Parameters: "/verysilent /noreboot /nocancel /noicons /dir=""{app}/ruby-1.9.2"""; \
   Flags: shellexec waituntilterminated; StatusMsg: "Installing Ruby"; Components: "toolbelt/client"
-Filename: "{app}\ruby-1.9.2\bin\gem.bat"; Parameters: "install taps --no-rdoc --no-ri"; \
-  Flags: runhidden shellexec waituntilterminated; StatusMsg: "Installing Taps"; Components: "toolbelt/client"
-Filename: "{app}\ruby-1.9.2\bin\gem.bat"; Parameters: "install foreman --no-rdoc --no-ri"; \
-  Flags: runhidden shellexec waituntilterminated; StatusMsg: "Installing Foreman"; Components: "toolbelt/foreman"
 Filename: "{tmp}\git.exe"; Parameters: "/silent /nocancel /noicons"; \
   Flags: shellexec waituntilterminated; StatusMsg: "Installing Git"; Components: "toolbelt/git"
 

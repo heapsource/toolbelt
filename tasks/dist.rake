@@ -49,19 +49,19 @@ def s3
   @s3 ||= begin
     require 'fog'
 
-    unless ENV["HEROKU_RELEASE_ACCESS"] && ENV["HEROKU_RELEASE_SECRET"]
-      abort("please set HEROKU_RELEASE_ACCESS and HEROKU_RELEASE_SECRET")
+    unless ENV["NUVADO_RELEASE_ACCESS"] && ENV["NUVADO_RELEASE_SECRET"]
+      abort("please set NUVADO_RELEASE_ACCESS and NUVADO_RELEASE_SECRET")
     end
 
     Fog::Storage.new(
       :provider               => 'AWS',
-      :aws_access_key_id      => ENV["HEROKU_RELEASE_ACCESS"],
-      :aws_secret_access_key  => ENV["HEROKU_RELEASE_SECRET"]
+      :aws_access_key_id      => ENV["NUVADO_RELEASE_ACCESS"],
+      :aws_secret_access_key  => ENV["NUVADO_RELEASE_SECRET"]
     )
   end
 end
 
-def store(local, remote, bucket="assets.heroku.com")
+def store(local, remote, bucket="assets.nuvado.io")
   puts "storing: #{bucket}/#{remote}"
   directory = s3.directories.new(:key => bucket)
   directory.files.create(
@@ -80,7 +80,7 @@ def tempdir
 end
 
 def version
-  @version ||= %x{ ruby "-r#{basedir}/components/heroku/lib/heroku/version.rb" -e "puts Heroku::VERSION" }.chomp
+  @version ||= %x{ ruby "-r#{basedir}/components/nuvado/lib/nuvado/version.rb" -e "puts Nuvado::VERSION" }.chomp
 end
 
 def windows?

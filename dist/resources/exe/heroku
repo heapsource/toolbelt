@@ -19,11 +19,14 @@ end
 # add self to libpath
 $:.unshift File.expand_path("../../lib", bin_file)
 
-# inject any code in ~/.heroku/client over top
-require "heroku/updater"
-Heroku::Updater.inject_libpath
-
 # start up the CLI
-require "heroku/cli"
-Heroku.user_agent = "heroku/toolbelt/#{Heroku::VERSION} (#{RUBY_PLATFORM}) ruby/#{RUBY_VERSION}"
-Heroku::CLI.start(*ARGV)
+require 'nuvado'
+begin
+  Nuvado::Nuvado.start(ARGV)
+rescue Nuvado::SystemExitException => e
+  puts e.message
+  exit
+rescue Errno::ECONNREFUSED
+  puts "Couldn't connect with nuvado's API"
+  exit
+end
