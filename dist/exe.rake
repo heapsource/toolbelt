@@ -43,7 +43,7 @@ file pkg("nuvado-toolbelt-#{version}.exe") do |t|
     password = ENV["CERT_PASSWORD"]
     # TODO: can't have a space in the certificate path; keeping it in C: root sucks
     sign_with = "/sStandard=#{signtool} sign /d Nuvado-Toolbelt /f C:\\Certificates.p12 /v /p #{password} $f"
-    system "\"#{inno_dir}\\iscc\" \"#{sign_with}\" /cc \"nuvado.iss\""
+    # system "\"#{inno_dir}\\iscc\" \"#{sign_with}\" /cc \"nuvado.iss\""
   end
 end
 
