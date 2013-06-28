@@ -20,8 +20,9 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.6.5)
     nokogiri (1.5.6)
-    rake (10.0.3)
+    rake (10.1.0)
     ruby-hmac (0.4.0)
+    rubyzip (0.9.9)
 
 PLATFORMS
   ruby
@@ -29,3 +30,4 @@ PLATFORMS
 DEPENDENCIES
   fog
   rake
+  rubyzip
