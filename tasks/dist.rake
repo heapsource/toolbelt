@@ -87,6 +87,6 @@ def windows?
   RbConfig::CONFIG["host_os"] =~ /mingw|mswin/
 end
 
-Dir[File.expand_path("../../dist/**/*.rake", __FILE__)].each do |rake|
+Dir[File.expand_path("../../dist/**/*.rake", __FILE__)].reverse.each do |rake|
   import rake
 end

@@ -1,7 +1,7 @@
 $:.unshift File.expand_path("../lib", __FILE__)
 require "bundler/setup"
 
-Dir[File.expand_path("../tasks/*.rake", __FILE__)].each do |task|
+Dir[File.expand_path("../tasks/*.rake", __FILE__)].reverse.each do |task|
   load task
 end
 
@@ -39,7 +39,7 @@ def clean(file)
 end
 
 def distribution_files(type=nil)
-  Dir[File.expand_path("../../../{bin,data,lib}/**/*", __FILE__)].select do |file|
+  Dir[File.expand_path("../components/nuvado/{bin,data,lib}/**/*", __FILE__)].select do |file|
     File.file?(file)
   end
 end
@@ -49,4 +49,8 @@ def mkchdir(dir)
   Dir.chdir(dir) do |dir|
     yield(File.expand_path(dir))
   end
+end
+
+def project_root
+  File.dirname(__FILE__)
 end
